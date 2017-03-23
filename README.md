@@ -21,3 +21,4 @@ Node dependencies:
 Sources:
 
 - [Build your own starter](http://andrewhfarmer.com/build-your-own-starter/#2-npm)
+- [JS Stack from Scratch](https://github.com/verekia/js-stack-from-scratch)
