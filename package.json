@@ -1,0 +1,19 @@
+{
+  "name": "react-playground",
+  "version": "1.0.0",
+  "description": "This is just for testing React and Redux stuff.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Winterbottom",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "6.24.0",
+    "babel-loader": "6.4.1",
+    "babel-preset-latest": "6.24.0",
+    "babel-preset-react": "6.23.0",
+    "webpack": "2.3.1"
+  }
+}
