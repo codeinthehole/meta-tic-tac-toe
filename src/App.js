@@ -1,13 +1,6 @@
 import React from 'react';
 
-function Person(props) {
-    return (
-        <div>{props.name}</div>
-    )
-}
-
-const Man = (props) => <h4>{props.name}</h4>
-
+const Person = ({name}) => <h4>{name}</h4>
 
 class App extends React.Component {
 
@@ -17,7 +10,7 @@ class App extends React.Component {
                 <h2>Stuff</h2>
                 <Person name="David" />
                 <Person name="hell" />
-                <Man name="ssss" />
+                <Person name="ssss" />
             </div>
         )
     }
