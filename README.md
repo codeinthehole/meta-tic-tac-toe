@@ -38,5 +38,5 @@ Webpack:
 
 I used these articles when building this:
 
-- [Build your own starter](http://andrewhfarmer.com/build-your-own-starter/#2-npm)
+- [Build your own starter](http://andrewhfarmer.com/build-your-own-starter/#0-intro)
 - [JS Stack from Scratch](https://github.com/verekia/js-stack-from-scratch)
