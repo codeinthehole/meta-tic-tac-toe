@@ -1,6 +1,6 @@
 # React playground
 
-This is just for testing React and Redux stuff.
+This is just for testing React, Redux and other JS libraries.
 
 ## Commands
 
@@ -13,6 +13,10 @@ Run the Express server with:
     $ make
 
 And browse the site at http://localhost:3000
+
+Run tests with:
+
+    $ make test
 
 ## Dependency notes
 
