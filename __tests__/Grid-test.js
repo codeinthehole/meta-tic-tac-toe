@@ -23,3 +23,11 @@ test('passing invalid marks to <Grid /> raises a warning', () => {
     expect(stub.calledOnce)
     console.error.restore()
 });
+
+test('Grid.utils.chunkArray correctly splits arrays', () => {
+    let result = Grid.utils.chunkArray([1,2,3,4,5,6], 3)
+    expect(result).toEqual([[1,2,3], [4,5,6]])
+
+    result = Grid.utils.chunkArray([1,2,3,4], 2)
+    expect(result).toEqual([[1,2], [3,4]])
+});
