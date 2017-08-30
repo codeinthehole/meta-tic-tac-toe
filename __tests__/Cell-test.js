@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Space from '../src/Space';
+import Cell from '../src/Cell';
 
-test('<Space ... />', () => {
-    const component = shallow(<Space mark="X" />);
+test('<Cell ... />', () => {
+    const component = shallow(<Cell mark="X" />);
 
     expect(component.html()).toContain('<div class="space">X</div>')
 });

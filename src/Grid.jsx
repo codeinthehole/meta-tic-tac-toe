@@ -1,17 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Space from './Space'
+import Cell from './Cell'
 
 
 class Grid extends React.Component {
 
+    handleCellClick(index) {
+        console.log("Cell click on index " + index)
+    }
+
     render() {
         const chunkedMarks = Grid.utils.chunkArray(this.props.marks, this.props.size)
         let cells;
-        let rows = chunkedMarks.map(function(marks, rowIndex) {
-            cells = marks.map(function(mark, markIndex) {
-                return <Space key={markIndex} mark={mark} />
+        let rows = chunkedMarks.map((marks, rowIndex) => {
+            cells = marks.map((mark, markIndex) => {
+                const gridIndex = rowIndex * this.props.size + markIndex
+                return <Cell 
+                    key={markIndex} 
+                    mark={mark} 
+                    onValidClick={() => this.handleCellClick(gridIndex)} />
             })
             return <div className="row" key={rowIndex}>{cells}</div>
         })

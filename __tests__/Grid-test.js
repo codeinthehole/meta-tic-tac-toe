@@ -7,7 +7,7 @@ import Grid from '../src/Grid';
 test('<Grid /> renders correctly', () => {
     const component = shallow(<Grid />);
 
-    // Not a good assertion - better to check that the right number of Space components
+    // Not a good assertion - better to check that the right number of Cell components
     // have been called.
     expect(component.html()).toContain('grid')
 });
