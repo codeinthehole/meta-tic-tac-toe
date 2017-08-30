@@ -51,3 +51,6 @@ Move(oldGame, movedBoard,
 Board
     Grid
         Space
+
+Notes:
+- maybe "cell" would be better than "space"
