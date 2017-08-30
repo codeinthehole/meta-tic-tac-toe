@@ -6,6 +6,8 @@ import Space from './Space'
 class Grid extends React.Component {
 
     render() {
+        // Split array of marks up into equal size
+
         let spaces = this.props.marks.map(function(mark, index) {
             return <Space key={index} mark={mark} />
         })
@@ -16,8 +18,18 @@ class Grid extends React.Component {
 }
 
 Grid.propTypes = {
-    marks: PropTypes.arrayOf(PropTypes.string),
-    isAvailableForMove: PropTypes.bool,
+    size: PropTypes.number,
+    marks: function(props, propName, componentName) {
+        // Check the right number of marks are passed in
+        let size = props.size;
+        let expectedNumMarks = size * size;
+        let actualNumMarks = props[propName].length;1
+        if (actualNumMarks !== expectedNumMarks) {
+            let msg = `${actualNumMarks} marks passed in but ${expectedNumMarks} are required`
+            throw new Error(msg)
+        }
+    },
+    isAvailableForMove: PropTypes.bool
 }
 
 Grid.defaultProps = {
@@ -27,6 +39,7 @@ Grid.defaultProps = {
         null, null, null,
     ],
     isAvailableForMove: true,
+    size: 3,
 }
 
 export default Grid

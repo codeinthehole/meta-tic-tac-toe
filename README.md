@@ -2,7 +2,7 @@
 
 This is just for testing React, Redux and other JS libraries.
 
-## Commands
+## Getting started
 
 Install [yarn](https://yarnpkg.com/en/) then run:
 
@@ -17,6 +17,12 @@ And browse the site at http://localhost:3000
 Run tests with:
 
     $ make test
+
+## Development
+
+Add new dependencies with:
+
+    $ yarn add $package
 
 ## Dependency notes
 
@@ -37,6 +43,10 @@ Webpack:
     a single file.
 - [`babel-loader`](https://www.npmjs.com/package/babel-loader) - Webpack plugin
     to support running babel from webpack.
+
+Testing:
+
+- [`sinon`](https://www.npmjs.com/package/sinon) - For spying on calls to console.log
 
 ## Sources
 
