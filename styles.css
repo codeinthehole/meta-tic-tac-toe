@@ -1,0 +1,13 @@
+.grid {
+    border: 1px solid black;
+    padding: 1px;
+    width: 70px;
+    zoom: 1;
+}
+.grid .space {
+    border: 1px solid red;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    float: left;
+}
