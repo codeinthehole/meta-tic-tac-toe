@@ -14,10 +14,10 @@ test('<Grid /> renders correctly', () => {
 
 test('passing invalid marks to <Grid /> raises a warning', () => {
     // Replace console.error with a spy
-    let stub = sinon.stub(console, 'error')
+    const stub = sinon.stub(console, 'error')
 
     // Should be 9 cells, not 3
-    let marks = [null, null, null]
+    const marks = [null, null, null]
     const component = shallow(<Grid marks={marks} size={3} />);
 
     expect(stub.calledOnce)
