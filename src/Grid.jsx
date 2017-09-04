@@ -6,26 +6,35 @@ import Cell from './Cell'
 
 class Grid extends React.Component {
 
-    handleCellClick(index) {
-        console.log("Cell click on index " + index)
+    render() {
+        return (
+            <div className="grid">{this.renderRows()}</div>
+        )
     }
 
-    render() {
+    renderRows() {
+        // Split marks up into rows
         const chunkedMarks = Grid.utils.chunkArray(this.props.marks, this.props.size)
-        let cells;
-        let rows = chunkedMarks.map((marks, rowIndex) => {
-            cells = marks.map((mark, markIndex) => {
-                const gridIndex = rowIndex * this.props.size + markIndex
-                return <Cell 
-                    key={markIndex} 
-                    mark={mark} 
-                    onValidClick={() => this.handleCellClick(gridIndex)} />
-            })
-            return <div className="row" key={rowIndex}>{cells}</div>
+
+        // Render each row as a set of Cells
+        return chunkedMarks.map((marks, rowIndex) => {
+            return this.renderRow(marks, rowIndex)
         })
-        return (
-            <div className="grid">{rows}</div>
-        )
+    }
+
+    renderRow(marks, rowIndex) {
+        let cells = marks.map((mark, markIndex) => {
+            const gridIndex = rowIndex * this.props.size + markIndex
+            return this.renderCell(gridIndex, mark)
+        })
+        return <div className="row" key={rowIndex}>{cells}</div>
+    }
+
+    renderCell(index, mark) {
+        return <Cell 
+            key={index} 
+            mark={mark} 
+            onClick={() => this.props.onCellClick(index)} />
     }
 }
 
@@ -41,7 +50,8 @@ Grid.propTypes = {
             throw new Error(msg)
         }
     },
-    isAvailableForMove: PropTypes.bool
+    isAvailableForMove: PropTypes.bool,
+    onCellClick: PropTypes.func,
 }
 
 Grid.defaultProps = {

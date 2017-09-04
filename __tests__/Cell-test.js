@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import Cell from '../src/Cell';
 
 test('<Cell ... />', () => {
-    const component = shallow(<Cell mark="X" />);
+    const component = shallow(<Cell mark="X" onClick={() => {}} />);
 
     expect(component.html()).toContain('<div class="space">X</div>')
 });
