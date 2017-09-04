@@ -18,10 +18,14 @@ class App extends React.Component {
 
     handleCellClick(gridIndex) {
         // Check click is valid
-        if (this.state.marks[gridIndex] !== null) {
+        if (App.utils.calculateWinner(this.state.marks)) {
+            debug("Invalid move: game already won")
+            return
+        } else if (this.state.marks[gridIndex] !== null) {
             debug("Invalid move: that cell is not available")
             return
-        }
+        } 
+
         // Update marks array
         let newMarks = this.state.marks.slice()
         newMarks[gridIndex] = this.state.nextMark
@@ -35,10 +39,19 @@ class App extends React.Component {
         return (
             <div id="app">
                 <h1>Metagrid</h1>
-                <p>Next player: {this.state.nextMark}</p>
+                {this.renderStatus()}
                 <Grid marks={this.state.marks} onCellClick={this.handleCellClick.bind(this)} /> 
             </div>
         )
+    }
+
+    renderStatus() {
+        const winner = App.utils.calculateWinner(this.state.marks)
+        if (winner) {
+            return <p>Winner is {winner}</p>
+        } else {
+            return <p>Next player: {this.state.nextMark}</p>
+        }
     }
 }
 
