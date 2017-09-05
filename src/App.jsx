@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import MultiGrid from "./MultiGrid"
 
@@ -12,7 +13,8 @@ class App extends React.Component {
         // Manage all state at this level
         this.state = {
             // Model as an array of arrays
-            grids: Array(3 * 3).fill(Array(3 * 3).fill(null)),
+            grids: Array(this.props.size * this.props.size).fill(
+                Array(this.props.size * this.props.size).fill(null)),
             nextMark: "X",
             nextGridIndex: null
         };
@@ -72,9 +74,32 @@ class App extends React.Component {
     }
 }
 
+App.propTypes = {
+    size: PropTypes.number,
+}
+
+App.defaultProps = {
+    size: 3
+}
+
 App.utils = {
     calculateWinner: function(grids) {
-        // TODO...
+        // Someone has won when either...
+        //
+        // (a) they have won 5 or more grids
+        const wonGrids = grids.map(App.utils.calculateGridWinner)
+        let counts = {}
+        for (var i = 0; i < wonGrids.length; i++) {
+            if (wonGrids[i] !== null) {
+                counts[wonGrids[i]] = 1 + (counts[wonGrids[i]] || 0)
+            }
+        }
+        if (counts["X"] >= 5 ) {
+            return "X"
+        }
+        if (counts["O"] >= 5 ) {
+            return "O"
+        }
         return null
     },
     calculateGridWinner: function(marks) {

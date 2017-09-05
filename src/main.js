@@ -5,6 +5,6 @@ import App from './App';
 
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
-        <App />, document.getElementById('mount')
+        <App size={3} />, document.getElementById('mount')
     );
 });
