@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Grid from "./Grid"
+import MultiGrid from "./MultiGrid"
 
 const debug = console.log
 
@@ -11,36 +11,53 @@ class App extends React.Component {
 
         // Manage all state at this level
         this.state = {
-            marks: Array(3 * 3).fill(null),
-            nextMark: "X"
+            // Model as an array of arrays
+            grids: Array(3 * 3).fill(Array(3 * 3).fill(null)),
+            nextMark: "X",
+            nextGridIndex: null
         };
     }
 
-    handleCellClick(gridIndex) {
-        // Check click is valid
-        if (App.utils.calculateWinner(this.state.marks)) {
+    handleCellClick(gridIndex, cellIndex) {
+        // Check if game has been won already
+        if (App.utils.calculateWinner(this.state.grids)) {
             debug("Invalid move: game already won")
             return
-        } else if (this.state.marks[gridIndex] !== null) {
-            debug("Invalid move: that cell is not available")
+        } 
+        // Check if grid is allowed to be moved in
+        if (this.state.nextGridIndex !== null && gridIndex !== this.state.nextGridIndex) {
+            debug("Invalid move: that grid is not available")
             return
         } 
+        // Check if cell is free
+        const marks = this.state.grids[gridIndex]
+        if (marks[cellIndex]) {
+            debug("Invalid move: that cell is not available")
+            return
+        }
 
-        // Update marks array
-        let newMarks = this.state.marks.slice()
-        newMarks[gridIndex] = this.state.nextMark
+        // Update grids array
+        let newGrids = this.state.grids.slice()
+        let newMarks = marks.slice()
+        newMarks[cellIndex] = this.state.nextMark
+        newGrids[gridIndex] = newMarks
+
         // Update next player
         let nextMark = this.state.nextMark == "X" ? "O" : "X"
-        debug(`Setting index ${gridIndex} to ${this.state.nextMark} and nextMark to ${nextMark}`)
-        this.setState({marks: newMarks, nextMark: nextMark})
+        debug(`Setting cell ${cellIndex} of grid ${gridIndex} to ${this.state.nextMark} and nextMark to ${nextMark}`)
+
+        // Update nextGridIndex
+        // TODO Check that the next grid is valid
+        let nextGridIndex = cellIndex
+
+        this.setState({grids: newGrids, nextMark: nextMark, nextGridIndex: nextGridIndex})
     }
 
     render() {
         return (
             <div id="app">
                 <h1>Metagrid</h1>
-                {this.renderStatus()}
-                <Grid marks={this.state.marks} onCellClick={this.handleCellClick.bind(this)} /> 
+                <MultiGrid grids={this.state.grids} onCellClick={this.handleCellClick.bind(this)} /> 
             </div>
         )
     }
@@ -56,7 +73,11 @@ class App extends React.Component {
 }
 
 App.utils = {
-    calculateWinner: function(marks) {
+    calculateWinner: function(grids) {
+        // TODO...
+        return null
+    },
+    calculateGridWinner: function(marks) {
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
