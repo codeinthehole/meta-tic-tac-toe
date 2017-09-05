@@ -84,23 +84,9 @@ App.defaultProps = {
 
 App.utils = {
     calculateWinner: function(grids) {
-        // Someone has won when either...
-        //
-        // (a) they have won 5 or more grids
+        // Convert meta-grid into normal grid
         const wonGrids = grids.map(App.utils.calculateGridWinner)
-        let counts = {}
-        for (var i = 0; i < wonGrids.length; i++) {
-            if (wonGrids[i] !== null) {
-                counts[wonGrids[i]] = 1 + (counts[wonGrids[i]] || 0)
-            }
-        }
-        if (counts["X"] >= 5 ) {
-            return "X"
-        }
-        if (counts["O"] >= 5 ) {
-            return "O"
-        }
-        return null
+        return App.utils.calculateGridWinner(wonGrids)
     },
     calculateGridWinner: function(marks) {
         const lines = [

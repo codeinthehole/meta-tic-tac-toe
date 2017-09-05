@@ -70,14 +70,32 @@ describe("App.utils.calculateWinner", () => {
         expect(App.utils.calculateWinner(grids)).toBeNull()
     })
 
-    test('5 won grids means a winner', () => {
+    test('first row winner', () => {
         let grids = buildMultigrid()
         const grid = buildWonGrid("X")
         grids[0] = grid
         grids[1] = grid
         grids[2] = grid
+
+        expect(App.utils.calculateWinner(grids)).toEqual("X")
+    })
+
+    test('first column winner', () => {
+        let grids = buildMultigrid()
+        const grid = buildWonGrid("X")
+        grids[0] = grid
         grids[3] = grid
+        grids[6] = grid
+
+        expect(App.utils.calculateWinner(grids)).toEqual("X")
+    })
+
+    test('diagonal winner', () => {
+        let grids = buildMultigrid()
+        const grid = buildWonGrid("X")
+        grids[0] = grid
         grids[4] = grid
+        grids[8] = grid
 
         expect(App.utils.calculateWinner(grids)).toEqual("X")
     })
