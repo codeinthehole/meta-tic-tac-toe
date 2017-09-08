@@ -101,3 +101,38 @@ describe("App.utils.calculateWinner", () => {
     })
 
 })
+
+describe("App.utils.isGridOutcomeDecided", () => {
+    
+    test("empty grid is not decided", () => {
+        const grid = buildGrid()
+
+        expect(App.utils.isGridOutcomeDecided(grid)).toBeFalsy()
+    })
+
+    test("partial grid is not decided", () => {
+        const grid = [
+            'O', 'O', 'X',
+            null, 'X', 'O',
+            'O', 'X', 'X'
+        ]
+
+        expect(App.utils.isGridOutcomeDecided(grid)).toBeFalsy()
+    })
+
+    test("won grid is decided", () => {
+        const grid = buildWonGrid()
+
+        expect(App.utils.isGridOutcomeDecided(grid)).toBeTruthy()
+    })
+
+    test("drawn grid is decided", () => {
+        const grid = [
+            'O', 'O', 'X',
+            'X', 'X', 'O',
+            'O', 'X', 'X'
+        ]
+
+        expect(App.utils.isGridOutcomeDecided(grid)).toBeTruthy()
+    })
+})
