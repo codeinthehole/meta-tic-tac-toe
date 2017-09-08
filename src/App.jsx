@@ -48,9 +48,12 @@ class App extends React.Component {
         let nextMark = this.state.nextMark == "X" ? "O" : "X"
         debug(`Setting cell ${cellIndex} of grid ${gridIndex} to ${this.state.nextMark} and nextMark to ${nextMark}`)
 
-        // Update nextGridIndex
-        // TODO Check that the next grid is valid
+        // Update nextGridIndex - If the next grid's outcome is already
+        // decided, then any grid is valid
         let nextGridIndex = cellIndex
+        if (App.utils.isGridOutcomeDecided(newGrids[nextGridIndex])) {
+            nextGridIndex = null
+        }
 
         this.setState({grids: newGrids, nextMark: nextMark, nextGridIndex: nextGridIndex})
     }

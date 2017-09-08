@@ -31,7 +31,6 @@ class MultiGrid extends React.Component {
     }
 
     renderGrid(gridIndex, marks) {
-        console.log(gridIndex, this.props.nextGridIndex)
         return <Grid 
             key={gridIndex} 
             marks={marks} 
