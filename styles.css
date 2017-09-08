@@ -4,6 +4,9 @@
     padding: 4px;
     float: left;
 }
+.active {
+    border: 1px solid red;
+}
 .grid .space {
     border: 1px solid #aaa;
     width: 40px;
