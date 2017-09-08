@@ -35,7 +35,7 @@ class MultiGrid extends React.Component {
         return <Grid 
             key={gridIndex} 
             marks={marks} 
-            active={gridIndex == this.props.nextGridIndex}
+            active={gridIndex == this.props.nextGridIndex || this.props.nextGridIndex === null}
             onCellClick={(cellIndex) => this.props.onCellClick(gridIndex, cellIndex)} />
     }
 }
