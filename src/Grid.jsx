@@ -7,8 +7,9 @@ import Cell from './Cell'
 class Grid extends React.Component {
 
     render() {
+        const statusClass = this.props.active ? "active" : ""
         return (
-            <div className="grid">{this.renderRows()}</div>
+            <div className={`grid ${statusClass}`}>{this.renderRows()}</div>
         )
     }
 
@@ -50,7 +51,7 @@ Grid.propTypes = {
             throw new Error(msg)
         }
     },
-    isAvailableForMove: PropTypes.bool,
+    active: PropTypes.bool,
     onCellClick: PropTypes.func,
 }
 
@@ -60,7 +61,7 @@ Grid.defaultProps = {
         null, null, null,
         null, null, null,
     ],
-    isAvailableForMove: true,
+    active: false,
     size: 3,
 }
 

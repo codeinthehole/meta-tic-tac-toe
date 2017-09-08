@@ -59,13 +59,17 @@ class App extends React.Component {
         return (
             <div id="app">
                 <h1>Metagrid</h1>
-                <MultiGrid grids={this.state.grids} onCellClick={this.handleCellClick.bind(this)} /> 
+                {this.renderGameSummary()}
+                <MultiGrid 
+                    grids={this.state.grids} 
+                    onCellClick={this.handleCellClick.bind(this)} 
+                    nextGridIndex={this.state.nextGridIndex} /> 
             </div>
         )
     }
 
-    renderStatus() {
-        const winner = App.utils.calculateWinner(this.state.marks)
+    renderGameSummary() {
+        const winner = App.utils.calculateWinner(this.state.grids)
         if (winner) {
             return <p>Winner is {winner}</p>
         } else {

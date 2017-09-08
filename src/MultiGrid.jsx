@@ -31,9 +31,11 @@ class MultiGrid extends React.Component {
     }
 
     renderGrid(gridIndex, marks) {
+        console.log(gridIndex, this.props.nextGridIndex)
         return <Grid 
             key={gridIndex} 
             marks={marks} 
+            active={gridIndex == this.props.nextGridIndex}
             onCellClick={(cellIndex) => this.props.onCellClick(gridIndex, cellIndex)} />
     }
 }
@@ -51,10 +53,12 @@ MultiGrid.propTypes = {
         }
     },
     onCellClick: PropTypes.func,
+    nextGridIndex: PropTypes.number,
 }
 
 MultiGrid.defaultProps = {
     size: 3,
+    nextGridIndex: null,
 }
 
 MultiGrid.utils = {
