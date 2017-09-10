@@ -12,10 +12,15 @@ class App extends React.Component {
 
         // Manage all state at this level
         this.state = {
-            // Model as an array of arrays
+            // An array of arrays - each value is either "X", "O" or null.
             grids: Array(this.props.size * this.props.size).fill(
                 Array(this.props.size * this.props.size).fill(null)),
+            // An array where each element is the index of a grid where the
+            // outcome is decided.
+            completeGrids: [],
+            // The mark of the next player
             nextMark: "X",
+            // The grid that the next player must play in.
             nextGridIndex: null
         };
     }
@@ -27,8 +32,13 @@ class App extends React.Component {
             return
         } 
         // Check if grid is allowed to be moved in
+        // TODO this is duplication of the logic in the multigrid
+        if (this.state.completeGrids.indexOf(gridIndex) !== -1) {
+            debug("Invalid move: grid already won")
+            return
+        }
         if (this.state.nextGridIndex !== null && gridIndex !== this.state.nextGridIndex) {
-            debug("Invalid move: that grid is not available")
+            debug("Invalid move: moving in that grid is not permitted")
             return
         } 
         // Check if cell is free
@@ -38,11 +48,20 @@ class App extends React.Component {
             return
         }
 
+        // Move is valid!
+
         // Update grids array
         let newGrids = this.state.grids.slice()
         let newMarks = marks.slice()
         newMarks[cellIndex] = this.state.nextMark
         newGrids[gridIndex] = newMarks
+
+        // Check if the grid just moved in is now complete
+        const completeGrids = this.state.completeGrids.slice()
+        if (App.utils.isGridOutcomeDecided(newMarks)) {
+            debug(`Grid ${gridIndex} is now complete`)
+            completeGrids.push(gridIndex)
+        }
 
         // Update next player
         let nextMark = this.state.nextMark == "X" ? "O" : "X"
@@ -51,11 +70,15 @@ class App extends React.Component {
         // Update nextGridIndex - If the next grid's outcome is already
         // decided, then any grid is valid
         let nextGridIndex = cellIndex
-        if (App.utils.isGridOutcomeDecided(newGrids[nextGridIndex])) {
+        if (completeGrids.includes(nextGridIndex)) {
             nextGridIndex = null
         }
 
-        this.setState({grids: newGrids, nextMark: nextMark, nextGridIndex: nextGridIndex})
+        this.setState({
+            grids: newGrids, 
+            completeGrids: completeGrids,
+            nextMark: nextMark, 
+            nextGridIndex: nextGridIndex})
     }
 
     render() {
@@ -65,6 +88,7 @@ class App extends React.Component {
                 {this.renderGameSummary()}
                 <MultiGrid 
                     grids={this.state.grids} 
+                    completeGrids={this.state.completeGrids}
                     onCellClick={this.handleCellClick.bind(this)} 
                     nextGridIndex={this.state.nextGridIndex} /> 
             </div>
