@@ -7,7 +7,11 @@ import Cell from './Cell'
 class Grid extends React.Component {
 
     render() {
-        const statusClass = this.props.active ? "active" : ""
+        // Determiner the class of this grid
+        let statusClass = this.props.active ? "active" : ""
+        if (this.props.isOutcomeDecided) {
+            statusClass = "complete"
+        }
         return (
             <div className={`grid ${statusClass}`}>{this.renderRows()}</div>
         )
@@ -51,7 +55,11 @@ Grid.propTypes = {
             throw new Error(msg)
         }
     },
+    // Whether moves are allowed in this grive
     active: PropTypes.bool,
+    // Whether this grid's outcome is decided
+    isOutcomeDecided: PropTypes.bool,
+    // Event handler for clicking on a cell
     onCellClick: PropTypes.func,
 }
 
