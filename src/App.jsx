@@ -12,45 +12,28 @@ class App extends React.Component {
 
         // Manage all state at this level
         this.state = {
-            // An array of arrays - each value is either "X", "O" or null.
+            // The mark of the next player to play
+            nextMark: "X",
+            // An array of arrays - each value is either "X", "O" or null. We start will all
+            // nulls, as in no player has played yet.
             grids: Array(this.props.size * this.props.size).fill(
                 Array(this.props.size * this.props.size).fill(null)),
             // An array where each element is the index of a grid where the
             // outcome is decided.
             completeGrids: [],
-            // The mark of the next player
-            nextMark: "X",
-            // The grid that the next player must play in.
-            nextGridIndex: null
+            // An array where each element is the index of a grid where the
+            // next player can move. Starts as all grids
+            availableGrids: [...Array(this.props.size * this.props.size).keys()],
         };
     }
 
     handleCellClick(gridIndex, cellIndex) {
-        // Check if game has been won already
-        if (App.utils.calculateWinner(this.state.grids)) {
-            debug("Invalid move: game already won")
-            return
-        } 
-        // Check if grid is allowed to be moved in
-        // TODO this is duplication of the logic in the multigrid
-        if (this.state.completeGrids.indexOf(gridIndex) !== -1) {
-            debug("Invalid move: grid already won")
+        if (!this.isMoveValid(gridIndex, cellIndex)) {
             return
         }
-        if (this.state.nextGridIndex !== null && gridIndex !== this.state.nextGridIndex) {
-            debug("Invalid move: moving in that grid is not permitted")
-            return
-        } 
-        // Check if cell is free
+
+        // Update grids array with mark
         const marks = this.state.grids[gridIndex]
-        if (marks[cellIndex]) {
-            debug("Invalid move: that cell is not available")
-            return
-        }
-
-        // Move is valid!
-
-        // Update grids array
         let newGrids = this.state.grids.slice()
         let newMarks = marks.slice()
         newMarks[cellIndex] = this.state.nextMark
@@ -63,10 +46,6 @@ class App extends React.Component {
             completeGrids.push(gridIndex)
         }
 
-        // Update next player
-        let nextMark = this.state.nextMark == "X" ? "O" : "X"
-        debug(`Setting cell ${cellIndex} of grid ${gridIndex} to ${this.state.nextMark} and nextMark to ${nextMark}`)
-
         // Update nextGridIndex - If the next grid's outcome is already
         // decided, then any grid is valid
         let nextGridIndex = cellIndex
@@ -74,23 +53,62 @@ class App extends React.Component {
             nextGridIndex = null
         }
 
+        // Determine which grids the next player can move in
+        let availableGrids
+        if (completeGrids.indexOf(cellIndex) === -1) {
+            // If the cell-linked grid is not complete, we can only move there
+            availableGrids = [cellIndex]
+        } else {
+            const allGrids = [...Array(this.props.size * this.props.size).keys()]
+            availableGrids = allGrids.filter(value => completeGrids.indexOf(value) === -1) 
+        }
+
+        // Update next player
+        let nextMark = this.state.nextMark == "X" ? "O" : "X"
+        debug(`Setting cell ${cellIndex} of grid ${gridIndex} to ${this.state.nextMark} and nextMark to ${nextMark}`)
+
         this.setState({
             grids: newGrids, 
             completeGrids: completeGrids,
             nextMark: nextMark, 
-            nextGridIndex: nextGridIndex})
+            availableGrids: availableGrids})
+    }
+
+    isMoveValid(gridIndex, cellIndex) {
+        // Check if game has been won already
+        if (App.utils.calculateWinner(this.state.grids)) {
+            debug("Invalid move: game already won")
+            return false
+        } 
+        // Check if grid is allowed to be moved in
+        // TODO this is duplication of the logic in the multigrid
+        if (this.state.completeGrids.indexOf(gridIndex) !== -1) {
+            debug(`Invalid move: the outcome for grid ${gridIndex} is already determined`)
+            return false
+        }
+        if (this.state.availableGrids.indexOf(gridIndex) === -1) {
+            debug(`Invalid move: moving in grid ${gridIndex} is not permitted`)
+            return false
+        } 
+        // Check if cell is free
+        const marks = this.state.grids[gridIndex]
+        if (marks[cellIndex]) {
+            debug("Invalid move: that cell is not available")
+            return false
+        }
+        return true
     }
 
     render() {
         return (
             <div id="app">
-                <h1>Metagrid</h1>
+                <h1>Meta-noughts-and-crosses</h1>
                 {this.renderGameSummary()}
                 <MultiGrid 
                     grids={this.state.grids} 
                     completeGrids={this.state.completeGrids}
-                    onCellClick={this.handleCellClick.bind(this)} 
-                    nextGridIndex={this.state.nextGridIndex} /> 
+                    availableGrids={this.state.availableGrids}
+                    onCellClick={this.handleCellClick.bind(this)} />
             </div>
         )
     }

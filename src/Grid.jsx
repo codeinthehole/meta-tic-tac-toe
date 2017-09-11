@@ -8,7 +8,7 @@ class Grid extends React.Component {
 
     render() {
         // Determiner the class of this grid
-        let statusClass = this.props.active ? "active" : ""
+        let statusClass = this.props.isAvailable ? "active" : ""
         if (this.props.isOutcomeDecided) {
             statusClass = "complete"
         }
@@ -56,7 +56,7 @@ Grid.propTypes = {
         }
     },
     // Whether moves are allowed in this grive
-    active: PropTypes.bool,
+    isAvailable: PropTypes.bool,
     // Whether this grid's outcome is decided
     isOutcomeDecided: PropTypes.bool,
     // Event handler for clicking on a cell
@@ -69,7 +69,7 @@ Grid.defaultProps = {
         null, null, null,
         null, null, null,
     ],
-    active: false,
+    isAvailable: false,
     size: 3,
 }
 

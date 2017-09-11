@@ -31,18 +31,12 @@ class MultiGrid extends React.Component {
     }
 
     renderGrid(gridIndex, marks) {
-        // A grid is "active" (= can be played in) if it's the nominated next grid, or if there
-        // is no nominated grid. Plus it can't be already complete. 
-        let active = (gridIndex == this.props.nextGridIndex || this.props.nextGridIndex === null)
-        let isComplete = false
-        if (this.props.completeGrids.indexOf(gridIndex) !== -1) {
-            active = false
-            isComplete = true
-        }
+        let isAvailable = this.props.availableGrids.indexOf(gridIndex) !== -1
+        let isComplete = this.props.completeGrids.indexOf(gridIndex) !== -1
         return <Grid 
             key={gridIndex} 
             marks={marks} 
-            active={active}
+            isAvailable={isAvailable}
             isOutcomeDecided={isComplete}
             onCellClick={(cellIndex) => this.props.onCellClick(gridIndex, cellIndex)} />
     }
@@ -61,8 +55,8 @@ MultiGrid.propTypes = {
         }
     },
     completeGrids: PropTypes.arrayOf(PropTypes.number),
+    availableGrids: PropTypes.arrayOf(PropTypes.number),
     onCellClick: PropTypes.func,
-    nextGridIndex: PropTypes.number,
 }
 
 MultiGrid.defaultProps = {
