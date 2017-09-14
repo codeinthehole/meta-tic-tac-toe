@@ -10,3 +10,6 @@ install:
 
 test:
 	yarn test
+
+tree:
+	tree -I node_modules
