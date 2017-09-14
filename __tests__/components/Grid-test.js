@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import Grid from '../src/Grid';
+import Grid from '../../src/components/Grid';
 
 test('<Grid /> renders correctly', () => {
     const component = shallow(<Grid />);

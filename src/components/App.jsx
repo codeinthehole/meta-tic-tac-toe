@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
 
-import { clickCell } from './actions'
 import MultiGrid from "./MultiGrid"
+
 
 class App extends React.Component {
 
@@ -40,24 +39,4 @@ App.propTypes = {
     onCellClick: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => {
-    return {
-        nextMark: state.nextMark,
-        grids: state.grids,
-        completeGrids: state.completeGrids,
-        availableGrids: state.availableGrids,
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onCellClick: (gridIndex, cellIndex) => dispatch(clickCell(gridIndex, cellIndex))
-    }
-}
-
-const ConnectedApp = connect(
-    mapStateToProps, 
-    mapDispatchToProps
-)(App)
-
-export default ConnectedApp
+export default App

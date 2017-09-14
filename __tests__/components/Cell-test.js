@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Cell from '../src/Cell';
+import Cell from '../../src/components/Cell';
 
 test('<Cell ... />', () => {
     const component = shallow(<Cell mark="X" onClick={() => {}} />);

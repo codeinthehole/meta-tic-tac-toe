@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import ConnectedApp from './App';
+import AppContainer from './containers/AppContainer';
 import { reduce } from './reducers'
 
 // Configure redux store
 let store = createStore(
+    // Core game engine
     reduce,
     // For Chrome redux extension
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -17,7 +18,7 @@ let store = createStore(
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
         <Provider store={store}>
-            <ConnectedApp />
+            <AppContainer />
         </Provider>, 
         document.getElementById('mount')
     );
