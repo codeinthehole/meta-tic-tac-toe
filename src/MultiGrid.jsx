@@ -43,6 +43,7 @@ class MultiGrid extends React.Component {
 }
 
 MultiGrid.propTypes = {
+    // Has as default
     size: PropTypes.number,
     grids: function(props, propName, componentName) {
         // Check the right number of grids are passed in
@@ -54,14 +55,13 @@ MultiGrid.propTypes = {
             throw new Error(msg)
         }
     },
-    completeGrids: PropTypes.arrayOf(PropTypes.number),
-    availableGrids: PropTypes.arrayOf(PropTypes.number),
-    onCellClick: PropTypes.func,
+    completeGrids: PropTypes.arrayOf(PropTypes.number).isRequired,
+    availableGrids: PropTypes.arrayOf(PropTypes.number).isRequired,
+    onCellClick: PropTypes.func.isRequired,
 }
 
 MultiGrid.defaultProps = {
     size: 3,
-    nextGridIndex: null,
 }
 
 MultiGrid.utils = {

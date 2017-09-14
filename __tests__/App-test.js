@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import App from '../src/App';
+import { App } from '../src/reducers';
 
 describe("App.utils.calculateGridWinner", () => {
 
