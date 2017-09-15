@@ -1,57 +1,20 @@
-import { CLICK_CELL } from './actions'
-
-const debug = console.log
-
-const initialState = {
-    // The mark of the next player to play
-    nextMark: "X",
-    // An array of arrays - each value is either "X", "O" or null. We start will all
-    // nulls, as in no player has played yet.
-    grids: Array(3 * 3).fill(
-        Array(3 * 3).fill(null)),
-    // An array where each element is the index of a grid where the
-    // outcome is decided.
-    completeGrids: [],
-    // An array where each element is the index of a grid where the
-    // next player can move. Starts as all grids
-    availableGrids: [...Array(3 * 3).keys()],
-}
-
-export function reduce(state=initialState, action) {
-    switch (action.type) {
-        case CLICK_CELL:
-            return handleCellClick(state, action.gridIndex, action.cellIndex)
-        default:
-            return state
-    }
-}
-
-function handleCellClick(state, gridIndex, cellIndex) {
-    console.log("Click cell reducer", gridIndex, cellIndex)
-
+export function handleCellClick(state, gridIndex, cellIndex) {
     if (!isMoveValid(state, gridIndex, cellIndex)) {
         return state
     }
 
-    // Update grids array with mark
+    // Update grids array with the valid mark
     const marks = state.grids[gridIndex]
     let newGrids = state.grids.slice()
     let newMarks = marks.slice()
     newMarks[cellIndex] = state.nextMark
     newGrids[gridIndex] = newMarks
 
-    // Check if the grid just moved in is now complete
+    // Check if the grid just moved in is now complete - if so, update the
+    // completeGrids array
     const completeGrids = state.completeGrids.slice()
     if (App.utils.isGridOutcomeDecided(newMarks)) {
-        debug(`Grid ${gridIndex} is now complete`)
         completeGrids.push(gridIndex)
-    }
-
-    // Update nextGridIndex - If the next grid's outcome is already
-    // decided, then any grid is valid
-    let nextGridIndex = cellIndex
-    if (completeGrids.includes(nextGridIndex)) {
-        nextGridIndex = null
     }
 
     // Determine which grids the next player can move in
@@ -60,20 +23,20 @@ function handleCellClick(state, gridIndex, cellIndex) {
         // If the cell-linked grid is not complete, we can only move there
         availableGrids = [cellIndex]
     } else {
+        // Otherwise, we can move in all grids that aren't complete
         const allGrids = [...Array(props.size * props.size).keys()]
         availableGrids = allGrids.filter(value => completeGrids.indexOf(value) === -1) 
     }
 
     // Update next player
     let nextMark = state.nextMark == "X" ? "O" : "X"
-    debug(`Setting cell ${cellIndex} of grid ${gridIndex} to ${state.nextMark} and nextMark to ${nextMark}`)
 
-    return Object.assign({}, state, {
+    return {
         grids: newGrids,
         completeGrids: completeGrids,
         availableGrids: availableGrids,
         nextMark: nextMark
-    })
+    }
 }
 
 export const App = {
@@ -160,23 +123,18 @@ export const App = {
 function isMoveValid(state, gridIndex, cellIndex) {
     // Check if game has been won already
     if (App.utils.calculateWinner(state.grids)) {
-        debug("Invalid move: game already won")
         return false
     } 
     // Check if grid is allowed to be moved in
-    // TODO this is duplication of the logic in the multigrid
     if (state.completeGrids.indexOf(gridIndex) !== -1) {
-        debug(`Invalid move: the outcome for grid ${gridIndex} is already determined`)
         return false
     }
     if (state.availableGrids.indexOf(gridIndex) === -1) {
-        debug(`Invalid move: moving in grid ${gridIndex} is not permitted`)
         return false
     } 
     // Check if cell is free
     const marks = state.grids[gridIndex]
     if (marks[cellIndex]) {
-        debug("Invalid move: that cell is not available")
         return false
     }
     return true

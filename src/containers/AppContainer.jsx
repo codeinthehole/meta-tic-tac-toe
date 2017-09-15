@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import App from '../components/App'
-import { clickCell } from '../actions'
+import { clickCell } from '../game/actions'
 
 
 const mapStateToProps = state => {

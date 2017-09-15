@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 import AppContainer from './containers/AppContainer';
-import { reduce } from './reducers'
+import { reduce } from './game/reducers'
 
 // Configure redux store
 let store = createStore(
