@@ -58,7 +58,7 @@ function handleCellClick(state, gridIndex, cellIndex) {
         availableGrids = [cellIndex]
     } else {
         // Otherwise, we can move in all grids that aren't complete
-        const allGrids = [...Array(props.size * props.size).keys()]
+        const allGrids = [...Array(3 * 3).keys()]
         availableGrids = allGrids.filter(value => completeGrids.indexOf(value) === -1) 
     }
 
