@@ -11,6 +11,7 @@ class App extends React.Component {
             <div id="app">
                 <h1>Meta-noughts-and-crosses</h1>
                 {this.renderGameSummary()}
+                <p><a href="#" onClick={this.props.onReset}>reset</a></p>
                 <MultiGrid 
                     grids={this.props.grids} 
                     completeGrids={this.props.completeGrids}
@@ -36,7 +37,9 @@ App.propTypes = {
     grids: PropTypes.array.isRequired,
     completeGrids: PropTypes.array.isRequired,
     availableGrids: PropTypes.array.isRequired,
-    onCellClick: PropTypes.func.isRequired
+    
+    onCellClick: PropTypes.func.isRequired,
+    onReset: PropTypes.func.isRequired,
 }
 
 export default App

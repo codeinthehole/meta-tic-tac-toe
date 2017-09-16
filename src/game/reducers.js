@@ -1,4 +1,4 @@
-import { CLICK_CELL } from './actions'
+import { CLICK_CELL, RESET_GAME } from './actions'
 import { handleCellClick } from './engine' 
 
 const initialState = {
@@ -21,6 +21,9 @@ export function reduce(state=initialState, action) {
         case CLICK_CELL:
             const mutations = handleCellClick(state, action.gridIndex, action.cellIndex)
             return Object.assign({}, state, mutations)
+
+        case RESET_GAME:
+            return initialState
 
         default:
             return state

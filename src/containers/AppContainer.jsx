@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import App from '../components/App'
-import { clickCell } from '../game/actions'
+import { clickCell, resetGame } from '../game/actions'
 
 
 const mapStateToProps = state => {
@@ -17,7 +17,10 @@ const mapDispatchToProps = dispatch => {
     return {
         onCellClick: (gridIndex, cellIndex) => dispatch(
             clickCell(gridIndex, cellIndex)
-        )
+        ),
+        onReset: () => dispatch(
+            resetGame()
+        ),
     }
 }
 
