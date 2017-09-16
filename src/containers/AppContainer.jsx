@@ -10,6 +10,7 @@ const mapStateToProps = state => {
         grids: state.grids,
         completeGrids: state.completeGrids,
         availableGrids: state.availableGrids,
+        winner: state.winner,
     }
 }
 

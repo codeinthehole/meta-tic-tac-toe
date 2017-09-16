@@ -15,6 +15,8 @@ export const initialState = {
     // An array where each element is the index of a grid where the
     // next player can move. Starts as all grids
     availableGrids: [...Array(3 * 3).keys()],
+    // The winning player
+    winner: null,
 }
 
 export function reduce(state=initialState, action) {
@@ -62,14 +64,21 @@ function handleCellClick(state, gridIndex, cellIndex) {
         availableGrids = allGrids.filter(value => completeGrids.indexOf(value) === -1) 
     }
 
+    // See if the game is won now
+    const winner = Rules.calculateWinner(newGrids)
+    if (winner) {
+        availableGrids = []
+    }
+
     // Update next player
     let nextMark = state.nextMark == "X" ? "O" : "X"
 
     return {
+        nextMark: nextMark,
         grids: newGrids,
         completeGrids: completeGrids,
         availableGrids: availableGrids,
-        nextMark: nextMark
+        winner: winner,
     }
 }
 
