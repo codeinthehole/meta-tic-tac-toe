@@ -1,14 +1,10 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { Rules } from '../../src/game/engine';
 
-import { App } from '../../src/game/engine';
-
-describe("App.utils.calculateGridWinner", () => {
+describe("Rules.calculateGridWinner", () => {
 
     test('empty board has no winner', () => {
         const marks = Array(9).fill(null)
-        expect(App.utils.calculateGridWinner(marks)).toEqual(null)
+        expect(Rules.calculateGridWinner(marks)).toEqual(null)
     });
 
     test('top line winner', () => {
@@ -16,7 +12,7 @@ describe("App.utils.calculateGridWinner", () => {
         marks[0] = "X"
         marks[1] = "X"
         marks[2] = "X"
-        expect(App.utils.calculateGridWinner(marks)).toEqual("X")
+        expect(Rules.calculateGridWinner(marks)).toEqual("X")
     });
 
     test('second line winner', () => {
@@ -24,7 +20,7 @@ describe("App.utils.calculateGridWinner", () => {
         marks[3] = "X"
         marks[4] = "X"
         marks[5] = "X"
-        expect(App.utils.calculateGridWinner(marks)).toEqual("X")
+        expect(Rules.calculateGridWinner(marks)).toEqual("X")
     });
 
     test('first column winner', () => {
@@ -32,7 +28,7 @@ describe("App.utils.calculateGridWinner", () => {
         marks[0] = "X"
         marks[3] = "X"
         marks[6] = "X"
-        expect(App.utils.calculateGridWinner(marks)).toEqual("X")
+        expect(Rules.calculateGridWinner(marks)).toEqual("X")
     });
 
     test('diagonal winner', () => {
@@ -40,7 +36,7 @@ describe("App.utils.calculateGridWinner", () => {
         marks[0] = "X"
         marks[4] = "X"
         marks[8] = "X"
-        expect(App.utils.calculateGridWinner(marks)).toEqual("X")
+        expect(Rules.calculateGridWinner(marks)).toEqual("X")
     });
 
 })
@@ -62,12 +58,12 @@ function buildWonGrid(mark="X") {
     return grid
 }
 
-describe("App.utils.calculateWinner", () => {
+describe("Rules.calculateWinner", () => {
     
     test('empty grids have no winner', () => {
         let grids = buildMultigrid()
 
-        expect(App.utils.calculateWinner(grids)).toBeNull()
+        expect(Rules.calculateWinner(grids)).toBeNull()
     })
 
     test('first row winner', () => {
@@ -77,7 +73,7 @@ describe("App.utils.calculateWinner", () => {
         grids[1] = grid
         grids[2] = grid
 
-        expect(App.utils.calculateWinner(grids)).toEqual("X")
+        expect(Rules.calculateWinner(grids)).toEqual("X")
     })
 
     test('first column winner', () => {
@@ -87,7 +83,7 @@ describe("App.utils.calculateWinner", () => {
         grids[3] = grid
         grids[6] = grid
 
-        expect(App.utils.calculateWinner(grids)).toEqual("X")
+        expect(Rules.calculateWinner(grids)).toEqual("X")
     })
 
     test('diagonal winner', () => {
@@ -97,17 +93,17 @@ describe("App.utils.calculateWinner", () => {
         grids[4] = grid
         grids[8] = grid
 
-        expect(App.utils.calculateWinner(grids)).toEqual("X")
+        expect(Rules.calculateWinner(grids)).toEqual("X")
     })
 
 })
 
-describe("App.utils.isGridOutcomeDecided", () => {
+describe("Rules.isGridOutcomeDecided", () => {
     
     test("empty grid is not decided", () => {
         const grid = buildGrid()
 
-        expect(App.utils.isGridOutcomeDecided(grid)).toBeFalsy()
+        expect(Rules.isGridOutcomeDecided(grid)).toBeFalsy()
     })
 
     test("partial grid is not decided", () => {
@@ -117,13 +113,13 @@ describe("App.utils.isGridOutcomeDecided", () => {
             'O', 'X', 'X'
         ]
 
-        expect(App.utils.isGridOutcomeDecided(grid)).toBeFalsy()
+        expect(Rules.isGridOutcomeDecided(grid)).toBeFalsy()
     })
 
     test("won grid is decided", () => {
         const grid = buildWonGrid()
 
-        expect(App.utils.isGridOutcomeDecided(grid)).toBeTruthy()
+        expect(Rules.isGridOutcomeDecided(grid)).toBeTruthy()
     })
 
     test("drawn grid is decided", () => {
@@ -133,6 +129,6 @@ describe("App.utils.isGridOutcomeDecided", () => {
             'O', 'X', 'X'
         ]
 
-        expect(App.utils.isGridOutcomeDecided(grid)).toBeTruthy()
+        expect(Rules.isGridOutcomeDecided(grid)).toBeTruthy()
     })
 })
