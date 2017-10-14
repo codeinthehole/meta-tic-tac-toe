@@ -40,6 +40,7 @@ function handleCellClick(state, gridIndex, cellIndex) {
     let newEvents = state.events.slice()
 
     if (!isMoveValid(state, gridIndex, cellIndex)) {
+        return state
     }
 
     // Update grids array with the valid mark
@@ -57,7 +58,6 @@ function handleCellClick(state, gridIndex, cellIndex) {
         newEvents.push({
             description: `Grid ${gridIndex} is now complete`
         })
-        return {events: newEvents}
     }
 
     // Determine which grids the next player can move in
