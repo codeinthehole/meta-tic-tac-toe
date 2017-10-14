@@ -85,6 +85,7 @@ function handleCellClick(state, gridIndex, cellIndex) {
         grids: newGrids,
         completeGrids: completeGrids,
         availableGrids: availableGrids,
+        events: newEvents,
         winner: winner,
     }
 }
