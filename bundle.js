@@ -11194,7 +11194,9 @@ function reduce() {
 function handleCellClick(state, gridIndex, cellIndex) {
     var newEvents = state.events.slice();
 
-    if (!isMoveValid(state, gridIndex, cellIndex)) {}
+    if (!isMoveValid(state, gridIndex, cellIndex)) {
+        return state;
+    }
 
     // Update grids array with the valid mark
     var marks = state.grids[gridIndex];
@@ -11211,7 +11213,6 @@ function handleCellClick(state, gridIndex, cellIndex) {
         newEvents.push({
             description: 'Grid ' + gridIndex + ' is now complete'
         });
-        return { events: newEvents };
     }
 
     // Determine which grids the next player can move in
