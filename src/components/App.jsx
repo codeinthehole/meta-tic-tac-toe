@@ -9,7 +9,7 @@ class App extends React.Component {
     render() {
         return (
             <div id="app">
-                <h1>Meta-noughts-and-crosses</h1>
+                <h1>Meta-tic-tac-toe</h1>
                 {this.renderGameSummary()}
                 <p><a href="#" onClick={this.props.onReset}>Reset</a></p>
                 <MultiGrid 
@@ -17,6 +17,7 @@ class App extends React.Component {
                     completeGrids={this.props.completeGrids}
                     availableGrids={this.props.availableGrids}
                     onCellClick={this.props.onCellClick} />
+                {this.renderHistory()}
             </div>
         )
     }
@@ -29,6 +30,14 @@ class App extends React.Component {
             return <p>Next player: {this.props.nextMark}</p>
         }
     }
+
+    renderHistory() {
+        if (!this.props.events) {
+            return null
+        }
+        const listItems = this.props.events.map(function(item) {return <li>{item.description}</li>})
+        return <ul>{listItems}</ul>
+    }
 }
 
 App.propTypes = {
@@ -37,6 +46,7 @@ App.propTypes = {
     completeGrids: PropTypes.array.isRequired,
     availableGrids: PropTypes.array.isRequired,
     winner: PropTypes.string,
+    events: PropTypes.array.isRequired,
     
     onCellClick: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,

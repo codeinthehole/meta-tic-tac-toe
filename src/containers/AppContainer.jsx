@@ -1,3 +1,5 @@
+// A container component that simply connects a plain React component
+// to the Redux store.
 import { connect } from 'react-redux'
 
 import App from '../components/App'
@@ -10,6 +12,7 @@ const mapStateToProps = state => {
         grids: state.grids,
         completeGrids: state.completeGrids,
         availableGrids: state.availableGrids,
+        events: state.events,
         winner: state.winner,
     }
 }

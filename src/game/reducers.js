@@ -15,6 +15,8 @@ export const initialState = {
     // An array where each element is the index of a grid where the
     // next player can move. Starts as all grids
     availableGrids: [...Array(3 * 3).keys()],
+    // Array of events - just used to show more information about what has happened
+    events: [],
     // The winning player
     winner: null,
 }
@@ -35,8 +37,9 @@ export function reduce(state=initialState, action) {
 
 // Return the state mutations given a starting state and a cell click
 function handleCellClick(state, gridIndex, cellIndex) {
+    let newEvents = state.events.slice()
+
     if (!isMoveValid(state, gridIndex, cellIndex)) {
-        return state
     }
 
     // Update grids array with the valid mark
@@ -51,6 +54,10 @@ function handleCellClick(state, gridIndex, cellIndex) {
     const completeGrids = state.completeGrids.slice()
     if (Rules.isGridOutcomeDecided(newMarks)) {
         completeGrids.push(gridIndex)
+        newEvents.push({
+            description: `Grid ${gridIndex} is now complete`
+        })
+        return {events: newEvents}
     }
 
     // Determine which grids the next player can move in
