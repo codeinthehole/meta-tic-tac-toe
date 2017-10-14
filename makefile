@@ -13,3 +13,8 @@ test:
 
 tree:
 	tree -I node_modules
+
+deploy: compile
+	git add -A public
+	git commit -m "Building latest version of assets for deploy"
+	git subtree push --prefix public origin gh-pages
