@@ -1,6 +1,7 @@
-# React playground
+# Meta-tic-tac-toe
 
-This is just for testing React, Redux and other JS libraries.
+A simple game for exploring React, Redux and other JS libraries.
+
 
 ## Getting started
 
@@ -12,17 +13,30 @@ Run the Express server with:
 
     $ make
 
-And browse the site at http://localhost:3000
+and browse the site at http://localhost:3000
 
 Run tests with:
 
     $ make test
+
 
 ## Development
 
 Add new dependencies with:
 
     $ yarn add $package
+
+Check for outdated dependencies with:
+
+    $ yarn outdated
+
+
+## Deployment
+
+The repo is deployed using Github pages. The contents of the `public/` folder
+are deployed to the `gh-pages` branch of the repo, making the project available
+at: http://codeinthehole.com/meta-tic-tac-toe/
+
 
 ## Dependency notes
 
@@ -47,6 +61,7 @@ Webpack:
 Testing:
 
 - [`sinon`](https://www.npmjs.com/package/sinon) - For spying on calls to console.log
+
 
 ## Sources
 

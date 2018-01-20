@@ -2,31 +2,40 @@ import { CLICK_CELL, RESET_GAME } from './actions'
 import { Rules } from './engine' 
 
 export const initialState = {
+
     // The mark of the next player to play
     nextMark: "X",
+
     // An array of arrays - each value is either "X", "O" or null. We start will all
     // nulls, as in no player has played yet.
     grids: Array(3 * 3).fill(
         Array(3 * 3).fill(null)
     ),
+
     // An array where each element is the index of a grid where the
     // outcome is decided.
     completeGrids: [],
+
     // An array where each element is the index of a grid where the
     // next player can move. Starts as all grids
     availableGrids: [...Array(3 * 3).keys()],
+
     // Array of events - just used to show more information about what has happened
     events: [],
+
     // The winning player
     winner: null,
 }
 
 export function reduce(state=initialState, action) {
     switch (action.type) {
+
+        // A cell has been clicked - update the board
         case CLICK_CELL:
             const mutations = handleCellClick(state, action.gridIndex, action.cellIndex)
             return Object.assign({}, state, mutations)
 
+        // Reset the game
         case RESET_GAME:
             return initialState
 
@@ -40,6 +49,7 @@ function handleCellClick(state, gridIndex, cellIndex) {
     let newEvents = state.events.slice()
 
     if (!isMoveValid(state, gridIndex, cellIndex)) {
+        // Do nothing if an invalid cell has been clicked.
         return state
     }
 

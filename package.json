@@ -1,7 +1,7 @@
 {
-  "name": "react-playground",
+  "name": "meta-tic-tac-toe",
   "version": "1.0.0",
-  "description": "This is just for testing React and Redux stuff.",
+  "description": "A simple game built with React and Redux",
   "main": "index.js",
   "scripts": {
     "compile": "webpack",
