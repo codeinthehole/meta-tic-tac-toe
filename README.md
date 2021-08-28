@@ -19,21 +19,32 @@ Run an Express server (configured by `server.js`) with:
 
     $ yarn start
 
+The app will be available at http://localhost:3000
+
+This will dynamically compile and serve `bundle.js` (but without hot module
+reloading).
+
+To test the production bundle, compile it with:
+
+    $ make compile
+
+and run a HTTP server from the `public` directory with:
+
+    $ make prod_server
+
 ### Test suite
 
-and browse the site at http://localhost:3000
-
-Run tests with:
+Run all tests with:
 
     $ yarn test
 
 ### Dependencies
 
-Add new production dependencies with:
+Add new _production_ dependencies with:
 
     $ yarn add $package
 
-Add new development dependencies with:
+Add new _development_ dependencies with:
 
     $ yarn add --dev $package
 
@@ -52,15 +63,19 @@ Remove packages with:
 
 ## Deployment
 
-The repo is deployed using Github pages. The contents of the `public/` folder
-are deployed to the `gh-pages` branch of the repo, making the project available
-at: http://codeinthehole.com/meta-tic-tac-toe/
+The repo is deployed using Github pages.
+
+The contents of the `public/` folder are deployed to the `gh-pages` branch of the repo, making the project available
+at: http://codeinthehole.com/meta-tic-tac-toe/. This involves committing the
+production `bundle.js` file (which is mildly unusual as it would normally be
+compiled in a CI pipeline).
 
 To deploy a new version, run:
 
     $ make deploy
 
-which will compile a new `public/bundle.js` file
+which will compile a new `public/bundle.js` file and push to the `gh-pages`
+branch.
 
 
 ## Dependency notes
