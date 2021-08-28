@@ -38,6 +38,7 @@ class App extends React.Component {
         const listItems = this.props.events.map(function(item) {return <li>{item.description}</li>})
         return <ul>{listItems}</ul>
     }
+
 }
 
 App.propTypes = {

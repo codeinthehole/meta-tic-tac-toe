@@ -4,8 +4,11 @@ const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
 
 const app = express();
+
+// Serve files statically from /public...
 app.use(express.static(__dirname + '/public'));
 
+// ...except bundle.js which is served dynamically using webpack dev middleware.
 const compiler = webpack(webpackConfig);
 app.use(webpackDevMiddleware(compiler, {
     hot: true,

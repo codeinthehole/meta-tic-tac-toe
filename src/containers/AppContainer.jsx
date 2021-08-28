@@ -18,6 +18,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
+    // Map function props to dispatch actions
     return {
         onCellClick: (gridIndex, cellIndex) => dispatch(
             clickCell(gridIndex, cellIndex)
