@@ -6,11 +6,11 @@ import { Provider } from 'react-redux'
 import AppContainer from './containers/AppContainer';
 import { reduce } from './game/reducers'
 
-// Configure redux store
+// Configure Redux store
 let store = createStore(
     // Core game engine
     reduce,
-    // For Chrome redux extension
+    // For Chrome Redux extension
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

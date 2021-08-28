@@ -5,18 +5,19 @@ const webpackConfig = require('./webpack.config.js');
 
 const app = express();
 
-// Serve files statically from /public...
-app.use(express.static(__dirname + '/public'));
 
-// ...except bundle.js which is served dynamically using webpack dev middleware.
+// Serve bundle.js dynamically.
 webpackConfig.mode = "development"
 const compiler = webpack(webpackConfig);
 app.use(webpackDevMiddleware(compiler, {
-    publicPath: '/',
+    publicPath: webpackConfig.output.publicPath,
     stats: {
         colors: true,
     },
 }));
+
+// Serve files statically from /public
+app.use(express.static(__dirname + '/public'));
 
 const server = app.listen(3000, function() {
     const address = server.address()

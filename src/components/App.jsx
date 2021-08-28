@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 
 import MultiGrid from "./MultiGrid"
 
-
 class App extends React.Component {
 
     render() {
         return (
             <div id="app">
-                <h1>Meta-tic-tac-toe</h1>
+                <h1>Meta-tic-tac-toe!</h1>
                 {this.renderGameSummary()}
                 <p><a href="#" onClick={this.props.onReset}>Reset</a></p>
                 <MultiGrid 
@@ -18,6 +17,9 @@ class App extends React.Component {
                     availableGrids={this.props.availableGrids}
                     onCellClick={this.props.onCellClick} />
                 {this.renderHistory()}
+                <div>
+                    Code available at <a href="https://github.com/codeinthehole/meta-tic-tac-toe">https://github.com/codeinthehole/meta-tic-tac-toe</a>
+                </div>
             </div>
         )
     }
