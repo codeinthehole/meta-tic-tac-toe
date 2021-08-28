@@ -46,6 +46,9 @@ then upgrade them with one of:
     $ yarn upgrade $package --latest
     $ yarn upgrade $package@$version
 
+Remove packages with:
+
+    $ yarn remove $package
 
 ## Deployment
 
