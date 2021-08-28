@@ -29,9 +29,13 @@ Run tests with:
 
 ### Dependencies
 
-Add new dependencies with:
+Add new production dependencies with:
 
     $ yarn add $package
+
+Add new development dependencies with:
+
+    $ yarn add --dev $package
 
 Check for outdated dependencies with:
 
@@ -58,26 +62,31 @@ which will compile a new `public/bundle.js` file
 
 ## Dependency notes
 
-Babel:
+### Javascript compilation
 
-- [`babel-core`](https://www.npmjs.com/package/babel-core) - For transpiling code
-- [`babel-preset-latest`](https://www.npmjs.com/package/babel-preset-latest) -
-    Includes plugins from
-    [`es2015`](https://babeljs.io/docs/plugins/preset-es2015/),
-    [`es2016`](https://babeljs.io/docs/plugins/preset-es2016/) and
-    [`es2017`](https://babeljs.io/docs/plugins/preset-es2017/)
-- [`babel-preset-react`](https://www.npmjs.com/package/babel-preset-react) -
-    Includes plugins `preset-flow`, `syntax-jsx`, `transform-react-jsx` and `transform-react-display-name`.
+Compiling modern Javascript and JSX into JS that browsers understand:
 
-Webpack:
+- [`@babel/core`](https://babel.dev/docs/en/babel-core) - Core transpiling
+  package.
+- [`@babel/preset-env`](https://babel.dev/docs/en/babel-preset-env) - Preset to control which browsers your code can
+  compile for.
+- [`@babel/preset-react`](https://babel.dev/docs/en/babel-preset-react) - Preset which includes plugins for transpiling JSX.
+
+Babel is configured in `"babel"` key in `package.json`.
+
+### Bundling
+
+Converting source files into JS/CSS files.
 
 - [`webpack`](https://www.npmjs.com/package/webpack) - Bundles JS together into
     a single file.
 - [`babel-loader`](https://www.npmjs.com/package/babel-loader) - Webpack plugin
     to support running babel from webpack.
 
-Testing:
+### Testing
 
+- [`jest`](https://jestjs.io/) - Test runner, configured in `"jest"` object
+  within `package.json`.
 - [`sinon`](https://www.npmjs.com/package/sinon) - For spying on calls to console.log
 - [`enzyme`](https://enzymejs.github.io/enzyme/) - For testing React components.
 
