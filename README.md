@@ -29,13 +29,18 @@ Run tests with:
 
 ### Dependencies
 
+Add new dependencies with:
+
+    $ yarn add $package
+
 Check for outdated dependencies with:
 
     $ yarn outdated
 
-Add new dependencies with:
+then upgrade them with one of:
 
-    $ yarn add $package
+    $ yarn upgrade $package --latest
+    $ yarn upgrade $package@$version
 
 
 ## Deployment
