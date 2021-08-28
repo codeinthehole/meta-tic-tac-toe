@@ -2,7 +2,7 @@ server:
 	yarn start
 
 install:
-	yarn install
+	yarn install --production=false
 
 test:
 	yarn test
@@ -15,4 +15,4 @@ deploy: compile
 
 # This isn't needed for development as Express is configured to serve bundle.js
 compile:
-	yarn run compile
+	NODE_ENV=production yarn run compile
