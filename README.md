@@ -79,6 +79,7 @@ Webpack:
 Testing:
 
 - [`sinon`](https://www.npmjs.com/package/sinon) - For spying on calls to console.log
+- [`enzyme`](https://enzymejs.github.io/enzyme/) - For testing React components.
 
 
 ## Learning resources
