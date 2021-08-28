@@ -1,7 +1,13 @@
 server:
+	# Dynamically compile the bundle.js file using dev middleware.
 	yarn start
 
+prod_server:
+	# Serve the latest production compiled bundle.
+	cd public && python3 -m http.server
+
 install:
+	# Install dev dependencies
 	yarn install --production=false
 
 test:

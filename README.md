@@ -83,6 +83,13 @@ Converting source files into JS/CSS files.
 - [`babel-loader`](https://www.npmjs.com/package/babel-loader) - Webpack plugin
     to support running babel from webpack.
 
+### Local server
+
+Tools for running a local site with hot reloading:
+
+- [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware) - Middleware to allow Express to serve files emitted from Webpack.
+    a single file.
+
 ### Testing
 
 - [`jest`](https://jestjs.io/) - Test runner, configured in `"jest"` object

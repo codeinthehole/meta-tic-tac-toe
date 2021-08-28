@@ -9,15 +9,13 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 
 // ...except bundle.js which is served dynamically using webpack dev middleware.
+webpackConfig.mode = "development"
 const compiler = webpack(webpackConfig);
 app.use(webpackDevMiddleware(compiler, {
-    hot: true,
-    filename: 'bundle.js',
     publicPath: '/',
     stats: {
         colors: true,
     },
-    historyApiFallback: true,
 }));
 
 const server = app.listen(3000, function() {

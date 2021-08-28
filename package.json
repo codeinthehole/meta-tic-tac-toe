@@ -22,15 +22,16 @@
     "react-addons-test-utils": "15.6.2",
     "react-test-renderer": "16.2.0",
     "sinon": "11.1.2",
-    "webpack": "3.10",
-    "webpack-dev-middleware": "2.0.4"
+    "webpack": "5.51.1",
+    "webpack-dev-middleware": "5.0.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-redux": "5.0.6",
-    "redux": "3.7.2"
+    "redux": "3.7.2",
+    "webpack-cli": "4.8.0"
   },
   "babel": {
     "presets": [
